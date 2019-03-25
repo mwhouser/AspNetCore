@@ -26,6 +26,8 @@ namespace Microsoft.AspNetCore.Hosting.FunctionalTests
         public ShutdownTests(ITestOutputHelper output) : base(output) { }
 
         [ConditionalFact]
+        [OSSkipCondition(OperatingSystems.Windows)]
+        [OSSkipCondition(OperatingSystems.MacOSX)]
         [Flaky("https://github.com/aspnet/AspNetCore-Internal/issues/1687", FlakyOn.AzP.Linux)]
         public async Task ShutdownTestRun()
         {
@@ -33,7 +35,9 @@ namespace Microsoft.AspNetCore.Hosting.FunctionalTests
         }
 
         [ConditionalFact]
-        [Flaky("https://github.com/aspnet/Hosting/issues/1214", FlakyOn.AzP.Windows, FlakyOn.AzP.macOS)]
+        [OSSkipCondition(OperatingSystems.Windows)]
+        [OSSkipCondition(OperatingSystems.MacOSX)]
+        [Flaky("https://github.com/aspnet/Hosting/issues/1214", FlakyOn.AzP.Linux)]
         public async Task ShutdownTestWaitForShutdown()
         {
             await ExecuteShutdownTest(nameof(ShutdownTestWaitForShutdown), "WaitForShutdown");
